@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<!--
+    Dashboard.fxml — Main navigation screen.
+    Layout: BorderPane (Week 9 requirement — varied layouts).
+    Features: Live clock (multithreading), stats cards, activity log, navigation buttons.
+-->
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.controller.DashboardController"
+            styleClass="dashboard-root"
+            style="-fx-background-color: linear-gradient(to bottom right, #0a0a1a, #121230, #0d1f3c);">
+
+    <!-- ═══ TOP: Header with Title and Live Clock ═══ -->
+    <top>
+        <HBox alignment="CENTER" spacing="30"
+              style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 0 0 20 20;">
+            <padding><Insets topRightBottomLeft="18"/></padding>
+
+            <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <Label text="🏨 Hotel Management System"
+                       style="-fx-text-fill: white; -fx-font-weight: bold;">
+                    <font><Font size="28"/></font>
+                </Label>
+                <Label text="Advanced Dashboard — Enterprise Edition"
+                       style="-fx-text-fill: #7a7aaa; -fx-font-size: 13;"/>
+            </VBox>
+
+            <VBox alignment="CENTER_RIGHT">
+                <Label fx:id="lblClock" text="Loading clock..."
+                       style="-fx-text-fill: #00d2ff; -fx-font-weight: bold;">
+                    <font><Font size="16"/></font>
+                </Label>
+            </VBox>
+        </HBox>
+    </top>
+
+    <!-- ═══ CENTER: Summary Statistics Cards + Activity Log ═══ -->
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="25">
+            <padding><Insets top="30" right="30" bottom="10" left="30"/></padding>
+
+            <Label text="Dashboard Overview"
+                   style="-fx-text-fill: white; -fx-font-size: 22; -fx-font-weight: bold;"/>
+
+            <!-- Stats Cards Row -->
+            <GridPane hgap="18" vgap="18" alignment="CENTER">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="20"/>
+                    <ColumnConstraints percentWidth="20"/>
+                    <ColumnConstraints percentWidth="20"/>
+                    <ColumnConstraints percentWidth="20"/>
+                    <ColumnConstraints percentWidth="20"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                </rowConstraints>
+
+                <!-- Card 1: Total Rooms -->
+                <VBox alignment="CENTER" spacing="6"
+                      style="-fx-background-color: rgba(255,255,255,0.06); -fx-background-radius: 15; -fx-border-color: rgba(0,210,255,0.2); -fx-border-radius: 15;"
+                      GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <padding><Insets topRightBottomLeft="22"/></padding>
+                    <Label text="🛏" style="-fx-font-size: 32;"/>
+                    <Label fx:id="lblTotalRooms" text="0"
+                           style="-fx-text-fill: #00d2ff; -fx-font-size: 30; -fx-font-weight: bold;"/>
+                    <Label text="Total Rooms"
+                           style="-fx-text-fill: #8888aa; -fx-font-size: 12;"/>
+                </VBox>
+
+                <!-- Card 2: Available Rooms -->
+                <VBox alignment="CENTER" spacing="6"
+                      style="-fx-background-color: rgba(255,255,255,0.06); -fx-background-radius: 15; -fx-border-color: rgba(0,230,118,0.2); -fx-border-radius: 15;"
+                      GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <padding><Insets topRightBottomLeft="22"/></padding>
+                    <Label text="✅" style="-fx-font-size: 32;"/>
+                    <Label fx:id="lblAvailableRooms" text="0"
+                           style="-fx-text-fill: #00e676; -fx-font-size: 30; -fx-font-weight: bold;"/>
+                    <Label text="Available"
+                           style="-fx-text-fill: #8888aa; -fx-font-size: 12;"/>
+                </VBox>
+
+                <!-- Card 3: Active Guests -->
+                <VBox alignment="CENTER" spacing="6"
+                      style="-fx-background-color: rgba(255,255,255,0.06); -fx-background-radius: 15; -fx-border-color: rgba(255,193,7,0.2); -fx-border-radius: 15;"
+                      GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <padding><Insets topRightBottomLeft="22"/></padding>
+                    <Label text="👤" style="-fx-font-size: 32;"/>
+                    <Label fx:id="lblActiveGuests" text="0"
+                           style="-fx-text-fill: #ffc107; -fx-font-size: 30; -fx-font-weight: bold;"/>
+                    <Label text="Guests"
+                           style="-fx-text-fill: #8888aa; -fx-font-size: 12;"/>
+                </VBox>
+
+                <!-- Card 4: Revenue -->
+                <VBox alignment="CENTER" spacing="6"
+                      style="-fx-background-color: rgba(255,255,255,0.06); -fx-background-radius: 15; -fx-border-color: rgba(156,39,176,0.2); -fx-border-radius: 15;"
+                      GridPane.columnIndex="3" GridPane.rowIndex="0">
+                    <padding><Insets topRightBottomLeft="22"/></padding>
+                    <Label text="💰" style="-fx-font-size: 32;"/>
+                    <Label fx:id="lblRevenue" text="₹ 0.00"
+                           style="-fx-text-fill: #ce93d8; -fx-font-size: 22; -fx-font-weight: bold;"/>
+                    <Label text="Revenue"
+                           style="-fx-text-fill: #8888aa; -fx-font-size: 12;"/>
+                </VBox>
+
+                <!-- Card 5: Room Types -->
+                <VBox alignment="CENTER" spacing="6"
+                      style="-fx-background-color: rgba(255,255,255,0.06); -fx-background-radius: 15; -fx-border-color: rgba(255,87,34,0.2); -fx-border-radius: 15;"
+                      GridPane.columnIndex="4" GridPane.rowIndex="0">
+                    <padding><Insets topRightBottomLeft="22"/></padding>
+                    <Label text="🏷" style="-fx-font-size: 32;"/>
+                    <Label fx:id="lblRoomTypes" text="0"
+                           style="-fx-text-fill: #ff7043; -fx-font-size: 30; -fx-font-weight: bold;"/>
+                    <Label text="Room Types"
+                           style="-fx-text-fill: #8888aa; -fx-font-size: 12;"/>
+                </VBox>
+            </GridPane>
+
+            <!-- Recent Activity Section -->
+            <VBox spacing="10"
+                  style="-fx-background-color: rgba(255,255,255,0.04); -fx-background-radius: 15; -fx-border-color: rgba(255,255,255,0.08); -fx-border-radius: 15;"
+                  VBox.vgrow="ALWAYS">
+                <padding><Insets topRightBottomLeft="18"/></padding>
+
+                <Label text="📋  Recent Activity"
+                       style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+
+                <ListView fx:id="lstRecentActivity" prefHeight="170"
+                          style="-fx-background-color: transparent; -fx-control-inner-background: rgba(0,0,0,0.2); -fx-text-fill: #ccccdd; -fx-font-size: 12;"/>
+            </VBox>
+        </VBox>
+    </center>
+
+</BorderPane>

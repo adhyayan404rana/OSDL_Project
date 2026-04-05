@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainContainer" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.controller.MainLayoutController"
+            style="-fx-background-color: #0f1222;"> <!-- slightly different base to contrast inner panes -->
+
+    <!-- ═══ LEFT SIDEBAR ═══ -->
+    <left>
+        <VBox spacing="10" prefWidth="250"
+              style="-fx-background-color: #1a1e38; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+            
+            <padding><Insets top="30" right="20" bottom="30" left="20"/></padding>
+
+            <!-- Brand / Logo -->
+            <VBox alignment="CENTER" spacing="5" style="-fx-padding: 0 0 30 0;">
+                <Label text="🏨" style="-fx-font-size: 36;"/>
+                <Label text="CLEANPATH" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                <Label text="HOTELS" style="-fx-text-fill: #00d2ff; -fx-font-size: 14; -fx-letter-spacing: 2;"/>
+            </VBox>
+
+            <!-- Navigation Buttons -->
+            <Label text="MAIN MENU" style="-fx-text-fill: #666688; -fx-font-size: 10; -fx-font-weight: bold; -fx-padding: 10 0 5 10;"/>
+
+            <Button text="📊  Dashboard" onAction="#navToDashboard" maxWidth="Infinity" alignment="BASELINE_LEFT"
+                    style="-fx-background-color: transparent; -fx-text-fill: #b0b0d0; -fx-padding: 12 15; -fx-font-size: 14; -fx-cursor: hand; -fx-background-radius: 8;"/>
+            
+            <Button text="🛏  Rooms" onAction="#navToRooms" maxWidth="Infinity" alignment="BASELINE_LEFT"
+                    style="-fx-background-color: transparent; -fx-text-fill: #b0b0d0; -fx-padding: 12 15; -fx-font-size: 14; -fx-cursor: hand; -fx-background-radius: 8;"/>
+
+            <Button text="📅  Reservations" onAction="#navToReservations" maxWidth="Infinity" alignment="BASELINE_LEFT"
+                    style="-fx-background-color: transparent; -fx-text-fill: #b0b0d0; -fx-padding: 12 15; -fx-font-size: 14; -fx-cursor: hand; -fx-background-radius: 8;"/>
+
+            <Button text="👥  Guests" onAction="#navToGuests" maxWidth="Infinity" alignment="BASELINE_LEFT"
+
+                    style="-fx-background-color: transparent; -fx-text-fill: #b0b0d0; -fx-padding: 12 15; -fx-font-size: 14; -fx-cursor: hand; -fx-background-radius: 8;"/>
+            
+            <Button text="💰  Billing" onAction="#navToBilling" maxWidth="Infinity" alignment="BASELINE_LEFT"
+                    style="-fx-background-color: transparent; -fx-text-fill: #b0b0d0; -fx-padding: 12 15; -fx-font-size: 14; -fx-cursor: hand; -fx-background-radius: 8;"/>
+
+            <Button text="📈  Reports" onAction="#navToReports" maxWidth="Infinity" alignment="BASELINE_LEFT"
+                    style="-fx-background-color: transparent; -fx-text-fill: #b0b0d0; -fx-padding: 12 15; -fx-font-size: 14; -fx-cursor: hand; -fx-background-radius: 8;"/>
+
+            <Button text="🧹  Housekeeping" onAction="#navToHousekeeping" maxWidth="Infinity" alignment="BASELINE_LEFT"
+                    style="-fx-background-color: transparent; -fx-text-fill: #b0b0d0; -fx-padding: 12 15; -fx-font-size: 14; -fx-cursor: hand; -fx-background-radius: 8;"/>
+
+            <Region VBox.vgrow="ALWAYS"/> <!-- Pusher to move bottom items down -->
+
+            <Label text="SYSTEM" style="-fx-text-fill: #666688; -fx-font-size: 10; -fx-font-weight: bold; -fx-padding: 10 0 5 10;"/>
+            
+            <!-- User Info Label -->
+            <Label fx:id="lblUserRole" text="👤 Loading..."
+                   style="-fx-text-fill: #00d2ff; -fx-font-size: 12; -fx-padding: 10 15; -fx-background-color: rgba(0,210,255,0.05); -fx-background-radius: 8;"
+                   maxWidth="Infinity"/>
+
+            <Button text="🚪  Logout" onAction="#handleLogout" maxWidth="Infinity" alignment="BASELINE_LEFT"
+                    style="-fx-background-color: rgba(255,82,82,0.1); -fx-text-fill: #ff5252; -fx-padding: 12 15; -fx-font-size: 13; -fx-cursor: hand; -fx-background-radius: 8; -fx-font-weight: bold;"/>
+        </VBox>
+    </left>
+
+    <!-- ═══ CENTER: Dynamically Swapped Content ═══ -->
+    <center>
+        <!-- The MainLayoutController will inject Dashboard.fxml, RoomManagement.fxml, etc. here automatically -->
+    </center>
+
+</BorderPane>

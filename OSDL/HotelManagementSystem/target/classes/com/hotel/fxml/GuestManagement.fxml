@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<!--
+    GuestManagement.fxml — Guest tracking and management screen.
+    Layout: BorderPane with stats bar + TableView (Week 9 requirement).
+-->
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hotel.controller.GuestManagementController"
+            style="-fx-background-color: linear-gradient(to bottom right, #0a0a1a, #121230, #0d1f3c);">
+
+    <!-- ═══ TOP: Header ═══ -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="15"
+              style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 0 0 15 15;">
+            <padding><Insets topRightBottomLeft="14"/></padding>
+
+
+
+            <Label text="👥  Guest Management"
+                   style="-fx-text-fill: white; -fx-font-weight: bold;">
+                <font><Font size="22"/></font>
+            </Label>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Search Bar -->
+            <TextField fx:id="txtSearchGuest" promptText="🔍 Search by name, ID, or room..."
+                       prefWidth="280"
+                       style="-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: white; -fx-prompt-text-fill: #666; -fx-background-radius: 10; -fx-font-size: 13;"/>
+        </HBox>
+    </top>
+
+    <!-- ═══ CENTER: Stats + Table ═══ -->
+    <center>
+        <VBox spacing="18">
+            <padding><Insets top="20" right="25" bottom="20" left="25"/></padding>
+
+            <!-- Stats Row -->
+            <HBox spacing="20" alignment="CENTER">
+                <!-- Total Guests Card -->
+                <VBox alignment="CENTER" spacing="5" prefWidth="200"
+                      style="-fx-background-color: rgba(255,255,255,0.06); -fx-background-radius: 12; -fx-border-color: rgba(0,210,255,0.2); -fx-border-radius: 12;">
+                    <padding><Insets topRightBottomLeft="18"/></padding>
+                    <Label text="👤" style="-fx-font-size: 28;"/>
+                    <Label fx:id="lblTotalGuests" text="0"
+                           style="-fx-text-fill: #00d2ff; -fx-font-size: 26; -fx-font-weight: bold;"/>
+                    <Label text="Total Guests"
+                           style="-fx-text-fill: #8888aa; -fx-font-size: 12;"/>
+                </VBox>
+
+                <!-- Active Guests Card -->
+                <VBox alignment="CENTER" spacing="5" prefWidth="200"
+                      style="-fx-background-color: rgba(255,255,255,0.06); -fx-background-radius: 12; -fx-border-color: rgba(0,230,118,0.2); -fx-border-radius: 12;">
+                    <padding><Insets topRightBottomLeft="18"/></padding>
+                    <Label text="🟢" style="-fx-font-size: 28;"/>
+                    <Label fx:id="lblActiveGuests" text="0"
+                           style="-fx-text-fill: #00e676; -fx-font-size: 26; -fx-font-weight: bold;"/>
+                    <Label text="Active (In-Room)"
+                           style="-fx-text-fill: #8888aa; -fx-font-size: 12;"/>
+                </VBox>
+
+                <!-- Checked Out Card -->
+                <VBox alignment="CENTER" spacing="5" prefWidth="200"
+                      style="-fx-background-color: rgba(255,255,255,0.06); -fx-background-radius: 12; -fx-border-color: rgba(255,193,7,0.2); -fx-border-radius: 12;">
+                    <padding><Insets topRightBottomLeft="18"/></padding>
+                    <Label text="📋" style="-fx-font-size: 28;"/>
+                    <Label fx:id="lblCheckedOut" text="0"
+                           style="-fx-text-fill: #ffc107; -fx-font-size: 26; -fx-font-weight: bold;"/>
+                    <Label text="Checked Out"
+                           style="-fx-text-fill: #8888aa; -fx-font-size: 12;"/>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- Action Buttons -->
+                <VBox spacing="8" alignment="CENTER">
+                    <Button text="🗑  Remove Guest"
+                            onAction="#handleDeleteGuest"
+                            prefWidth="170" prefHeight="38"
+                            style="-fx-background-color: #ff5252; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-font-size: 12;"/>
+                    <Button text="🔄  Refresh"
+                            onAction="#handleRefresh"
+                            prefWidth="170" prefHeight="38"
+                            style="-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: #00d2ff; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-border-color: #00d2ff; -fx-border-radius: 8; -fx-font-size: 12;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Guest Table -->
+            <Label text="All Guests"
+                   style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+
+            <TableView fx:id="tblGuests" VBox.vgrow="ALWAYS"
+                       style="-fx-background-color: transparent;">
+                <columns>
+                    <TableColumn fx:id="colGuestId" text="Guest ID" prefWidth="90">
+                        <cellValueFactory><PropertyValueFactory property="customerId"/></cellValueFactory>
+                    </TableColumn>
+
+                    <TableColumn fx:id="colGuestName" text="Name" prefWidth="180">
+                        <cellValueFactory><PropertyValueFactory property="name"/></cellValueFactory>
+                    </TableColumn>
+
+                    <TableColumn fx:id="colGuestPhone" text="Phone" prefWidth="130">
+                        <cellValueFactory><PropertyValueFactory property="phone"/></cellValueFactory>
+                    </TableColumn>
+
+                    <TableColumn fx:id="colGuestRoom" text="Room #" prefWidth="80">
+                        <cellValueFactory><PropertyValueFactory property="assignedRoomNumber"/></cellValueFactory>
+                    </TableColumn>
+
+                    <TableColumn fx:id="colCheckIn" text="Check-In" prefWidth="120">
+                        <cellValueFactory><PropertyValueFactory property="checkInDate"/></cellValueFactory>
+                    </TableColumn>
+
+                    <TableColumn fx:id="colCheckOut" text="Check-Out" prefWidth="120">
+                        <cellValueFactory><PropertyValueFactory property="checkOutDate"/></cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>

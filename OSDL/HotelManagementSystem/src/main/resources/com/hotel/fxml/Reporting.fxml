@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.hotel.controller.ReportingController"
+      style="-fx-background-color: linear-gradient(to bottom right, #0a0a1a, #121230, #0d1f3c);">
+
+    <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+    <!-- Header & Controls -->
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <Label text="📈  Reporting Engine" style="-fx-text-fill: white; -fx-font-weight: bold;">
+            <font><Font size="26"/></font>
+        </Label>
+        
+        <Region HBox.hgrow="ALWAYS"/>
+        
+        <Label text="Select Report:" style="-fx-text-fill: #a0a0c0; -fx-font-size: 14;"/>
+        <ComboBox fx:id="cmbReportType" prefWidth="220"
+                  style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white;"/>
+        
+        <Button text="Generates" onAction="#handleGenerateReport"
+                style="-fx-background-color: #00d2ff; -fx-text-fill: #0a0a1a; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;"/>
+    </HBox>
+
+    <!-- Preview Box -->
+    <VBox spacing="10" VBox.vgrow="ALWAYS"
+          style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 12; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 12;">
+        
+        <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+        <Label text="Data Preview" style="-fx-text-fill: #00d2ff; -fx-font-size: 14; -fx-font-weight: bold;"/>
+
+        <TextArea fx:id="txtReportPreview" editable="false" VBox.vgrow="ALWAYS"
+                  style="-fx-control-inner-background: #10142b; -fx-text-fill: #e8e8e8; -fx-font-family: monospace; -fx-font-size: 13; -fx-background-color: transparent; -fx-border-width: 0;"/>
+        
+    </VBox>
+
+    <!-- Actions -->
+    <HBox alignment="CENTER_RIGHT">
+        <Button text="📥  Export Data to CSV" onAction="#handleExportCSV"
+                style="-fx-background-color: #00e676; -fx-text-fill: #0a0a1a; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 25; -fx-cursor: hand; -fx-font-size: 14;"/>
+    </HBox>
+
+</VBox>
