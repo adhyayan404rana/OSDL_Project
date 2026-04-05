@@ -3,8 +3,12 @@
 A Java-based hotel management system developed as part of my OSDL lab mini project.
 
 ## 🚀 Features
+- Log in Page
 - Room booking system
+- Reservation
+- Report Generation
 - Invoice generation
+- Housekeeping
 - File-based data storage
 - Object-Oriented Design (OOP)
 
