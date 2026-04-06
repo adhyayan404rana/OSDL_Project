@@ -61,8 +61,20 @@ public class DashboardController {
     /**
      * Called automatically by FXMLLoader after .fxml is loaded.
      */
+    @SuppressWarnings("unchecked")
     @FXML
     public void initialize() {
+        // Load permanently saved data from file (Serialization — Week 6)
+        if (roomStore.isEmpty()) {
+            Object[] savedData = FileIOUtility.loadDatabase();
+            if (savedData != null) {
+                roomStore = (ArrayList<Room>) savedData[0];
+                guestStore = (ArrayList<Customer>) savedData[1];
+                reservationStore = (ArrayList<com.hotel.model.Reservation>) savedData[2];
+                totalRevenue = (Double) savedData[3];
+            }
+        }
+
         // Start the live clock on a daemon background thread (Multithreading — Week 3)
         clockTask = new ClockTask(lblClock);
         clockThread = new Thread(clockTask);

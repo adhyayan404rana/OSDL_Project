@@ -15,9 +15,10 @@ public class Reservation implements Serializable {
     private Room room;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String status; // e.g. "CONFIRMED", "CANCELLED"
+    private String status; // "CONFIRMED", "CANCELLED"
 
-    public Reservation(Integer reservationId, String guestName, String guestPhone, Room room, LocalDate startDate, LocalDate endDate) {
+    public Reservation(Integer reservationId, String guestName, String guestPhone, Room room, LocalDate startDate,
+            LocalDate endDate) {
         this.reservationId = reservationId;
         this.guestName = guestName;
         this.guestPhone = guestPhone;
@@ -94,6 +95,7 @@ public class Reservation implements Serializable {
 
     @Override
     public String toString() {
-        return "Res#" + reservationId + " (" + guestName + ") -> Room " + getRoomNumber() + " [" + startDate + " to " + endDate + "]";
+        return "Res#" + reservationId + " (" + guestName + ") -> Room " + getRoomNumber() + " [" + startDate + " to "
+                + endDate + "]";
     }
 }

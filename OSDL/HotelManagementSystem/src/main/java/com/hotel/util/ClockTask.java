@@ -14,8 +14,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class ClockTask implements Runnable {
 
-    private final Label clockLabel;
-    private volatile boolean running = true;
+    private final Label clockLabel;// JavaFX text box that will display time on screen
+    private volatile boolean running = true;// is a switch to turn the thread on or off
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy  |  HH:mm:ss");
 
     public ClockTask(Label clockLabel) {

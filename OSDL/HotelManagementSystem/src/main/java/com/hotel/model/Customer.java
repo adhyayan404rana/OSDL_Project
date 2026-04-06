@@ -4,27 +4,26 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
- * Customer Model — demonstrates ENCAPSULATION (Week 1).
+ * Customer Model — demonstrates ENCAPSULATION
  * Private fields with public getters/setters. Uses Integer wrapper for ID.
  */
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer customerId;           // Wrapper class (Week 2)
+    private Integer customerId; // Wrapper class
     private String name;
     private String phone;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
-    private Integer assignedRoomNumber;   // Wrapper class (Week 2)
+    private Integer assignedRoomNumber;
 
-    // ─── Constructors ────────────────────────────────────────
     public Customer() {
     }
 
     public Customer(Integer customerId, String name, String phone,
-                    LocalDate checkInDate, LocalDate checkOutDate,
-                    Integer assignedRoomNumber) {
+            LocalDate checkInDate, LocalDate checkOutDate,
+            Integer assignedRoomNumber) {
         this.customerId = customerId;
         this.name = name;
         this.phone = phone;
@@ -33,7 +32,7 @@ public class Customer implements Serializable {
         this.assignedRoomNumber = assignedRoomNumber;
     }
 
-    // ─── Getters & Setters ───────────────────────────────────
+    // Getters & Setters
     public Integer getCustomerId() {
         return customerId;
     }

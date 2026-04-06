@@ -19,22 +19,36 @@ import java.util.Optional;
 public class ReservationController {
 
     // Form fields
-    @FXML private TextField txtGuestName;
-    @FXML private TextField txtPhone;
-    @FXML private ComboBox<String> cmbRoom;
-    @FXML private DatePicker dpStartDate;
-    @FXML private DatePicker dpEndDate;
+    @FXML
+    private TextField txtGuestName;
+    @FXML
+    private TextField txtPhone;
+    @FXML
+    private ComboBox<String> cmbRoom;
+    @FXML
+    private DatePicker dpStartDate;
+    @FXML
+    private DatePicker dpEndDate;
 
     // Table
-    @FXML private TableView<Reservation> tblReservations;
-    @FXML private TableColumn<Reservation, Integer> colResId;
-    @FXML private TableColumn<Reservation, String> colGuestName;
-    @FXML private TableColumn<Reservation, String> colPhone;
-    @FXML private TableColumn<Reservation, Integer> colRoomNum;
-    @FXML private TableColumn<Reservation, String> colRoomType;
-    @FXML private TableColumn<Reservation, LocalDate> colStart;
-    @FXML private TableColumn<Reservation, LocalDate> colEnd;
-    @FXML private TableColumn<Reservation, String> colStatus;
+    @FXML
+    private TableView<Reservation> tblReservations;
+    @FXML
+    private TableColumn<Reservation, Integer> colResId;
+    @FXML
+    private TableColumn<Reservation, String> colGuestName;
+    @FXML
+    private TableColumn<Reservation, String> colPhone;
+    @FXML
+    private TableColumn<Reservation, Integer> colRoomNum;
+    @FXML
+    private TableColumn<Reservation, String> colRoomType;
+    @FXML
+    private TableColumn<Reservation, LocalDate> colStart;
+    @FXML
+    private TableColumn<Reservation, LocalDate> colEnd;
+    @FXML
+    private TableColumn<Reservation, String> colStatus;
 
     private ObservableList<Reservation> observableReservations;
     private int nextResId = 1000;
@@ -64,8 +78,7 @@ public class ReservationController {
             cmbRoom.setItems(FXCollections.observableArrayList(
                     DashboardController.roomStore.stream()
                             .map(r -> "Room #" + r.getRoomNumber() + " — " + r.getRoomType().name())
-                            .toList()
-            ));
+                            .toList()));
         }
     }
 
@@ -97,16 +110,19 @@ public class ReservationController {
                 .filter(r -> r.getRoomNumber() == roomNum)
                 .findFirst();
 
-        if (selectedRoomOpt.isEmpty()) return;
+        if (selectedRoomOpt.isEmpty())
+            return;
         Room selectedRoom = selectedRoomOpt.get();
 
         // Check conflicts
         boolean conflict = DashboardController.reservationStore.stream()
-                .filter(res -> res.getStatus().equals("CONFIRMED") && res.getRoom().getRoomNumber().equals(selectedRoom.getRoomNumber()))
+                .filter(res -> res.getStatus().equals("CONFIRMED")
+                        && res.getRoom().getRoomNumber().equals(selectedRoom.getRoomNumber()))
                 .anyMatch(res -> isOverlap(start, end, res.getStartDate(), res.getEndDate()));
 
         if (conflict) {
-            showAlert(Alert.AlertType.ERROR, "Booking Conflict", "This room is already reserved during the chosen dates.");
+            showAlert(Alert.AlertType.ERROR, "Booking Conflict",
+                    "This room is already reserved during the chosen dates.");
             return;
         }
 
@@ -114,7 +130,7 @@ public class ReservationController {
         Reservation newRes = new Reservation(nextResId++, name, phone, selectedRoom, start, end);
         DashboardController.reservationStore.add(newRes);
         observableReservations.add(newRes);
-        
+
         // Also automatically block the room if the reservation is starting today
         if (start.equals(LocalDate.now())) {
             selectedRoom.setStatus(RoomStatus.RESERVED);
@@ -123,8 +139,9 @@ public class ReservationController {
         clearForm();
         String user = AuthService.getCurrentUser() != null ? AuthService.getCurrentUser().getUsername() : "System";
         FileIOUtility.logEvent("Reservation #" + newRes.getReservationId() + " created by " + user + ".");
-        
-        showAlert(Alert.AlertType.INFORMATION, "Booking Confirmed", "Reservation #" + newRes.getReservationId() + " successfully saved!");
+
+        showAlert(Alert.AlertType.INFORMATION, "Booking Confirmed",
+                "Reservation #" + newRes.getReservationId() + " successfully saved!");
     }
 
     @FXML
@@ -140,18 +157,21 @@ public class ReservationController {
             return;
         }
 
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Cancel Reservation #" + selected.getReservationId() + "?", ButtonType.YES, ButtonType.NO);
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
+                "Cancel Reservation #" + selected.getReservationId() + "?", ButtonType.YES, ButtonType.NO);
         confirm.showAndWait().ifPresent(response -> {
             if (response == ButtonType.YES) {
                 selected.setStatus("CANCELLED");
-                
+
                 // If the room was currently RESERVED for this booking, release it
-                if (selected.getStartDate().isEqual(LocalDate.now()) && selected.getRoom().getStatus() == RoomStatus.RESERVED) {
+                if (selected.getStartDate().isEqual(LocalDate.now())
+                        && selected.getRoom().getStatus() == RoomStatus.RESERVED) {
                     selected.getRoom().setStatus(RoomStatus.AVAILABLE);
                 }
 
                 tblReservations.refresh();
-                String user = AuthService.getCurrentUser() != null ? AuthService.getCurrentUser().getUsername() : "System";
+                String user = AuthService.getCurrentUser() != null ? AuthService.getCurrentUser().getUsername()
+                        : "System";
                 FileIOUtility.logEvent("Reservation #" + selected.getReservationId() + " cancelled by " + user + ".");
             }
         });

@@ -18,8 +18,10 @@ import java.io.IOException;
  */
 public class LoginController {
 
-    @FXML private TextField txtUsername;
-    @FXML private PasswordField txtPassword;
+    @FXML
+    private TextField txtUsername;
+    @FXML
+    private PasswordField txtPassword;
 
     @FXML
     public void initialize() {

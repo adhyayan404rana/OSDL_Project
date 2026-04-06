@@ -7,8 +7,6 @@ import java.util.*;
 
 /**
  * FileIOUtility — demonstrates I/O STREAMS, SERIALIZATION, and RANDOMACCESSFILE
- * (Weeks 5 & 6).
- *
  * 1. generateInvoice() → writes a text-based receipt using FileWriter (I/O
  * Streams)
  * 2. serializeConfig() → saves config Map to a .dat file using
@@ -164,6 +162,66 @@ public class FileIOUtility {
             recent.add(allLines.get(i));
         }
         return recent;
+    }
+
+    // PERMANENT DATABASE STORAGE — Serialization (Rubric Requirement)
+    private static final String DATABASE_FILE = "hotel_database.dat";
+
+    /**
+     * Saves all Rooms, Customers, Reservations, and Revenue permanently
+     * to a binary .dat file using ObjectOutputStream (Serialization).
+     * Called automatically when the application closes.
+     */
+    public static void saveDatabase(java.util.ArrayList<com.hotel.model.Room> rooms,
+                                     java.util.ArrayList<com.hotel.model.Customer> guests,
+                                     java.util.ArrayList<com.hotel.model.Reservation> reservations,
+                                     Double totalRevenue) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATABASE_FILE))) {
+            oos.writeObject(rooms);
+            oos.writeObject(guests);
+            oos.writeObject(reservations);
+            oos.writeObject(totalRevenue);
+            logEvent("Database saved permanently to " + DATABASE_FILE
+                    + " (" + rooms.size() + " rooms, " + guests.size() + " guests, "
+                    + reservations.size() + " reservations)");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads all Rooms, Customers, Reservations, and Revenue back from
+     * the binary .dat file using ObjectInputStream (Deserialization).
+     * Called automatically when the application starts.
+     *
+     * @return an Object array: [ArrayList<Room>, ArrayList<Customer>, ArrayList<Reservation>, Double]
+     *         or null if no saved data exists.
+     */
+    @SuppressWarnings("unchecked")
+    public static Object[] loadDatabase() {
+        File file = new File(DATABASE_FILE);
+        if (!file.exists()) {
+            return null; // No saved data yet — first launch
+        }
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DATABASE_FILE))) {
+            java.util.ArrayList<com.hotel.model.Room> rooms =
+                    (java.util.ArrayList<com.hotel.model.Room>) ois.readObject();
+            java.util.ArrayList<com.hotel.model.Customer> guests =
+                    (java.util.ArrayList<com.hotel.model.Customer>) ois.readObject();
+            java.util.ArrayList<com.hotel.model.Reservation> reservations =
+                    (java.util.ArrayList<com.hotel.model.Reservation>) ois.readObject();
+            Double totalRevenue = (Double) ois.readObject();
+
+            logEvent("Database loaded from " + DATABASE_FILE
+                    + " (" + rooms.size() + " rooms, " + guests.size() + " guests, "
+                    + reservations.size() + " reservations)");
+
+            return new Object[]{rooms, guests, reservations, totalRevenue};
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // Helper
