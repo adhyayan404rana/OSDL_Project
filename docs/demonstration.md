@@ -10,8 +10,7 @@ This document maps the theoretical concepts covered in Labs 1 through 9 to their
 - **Components:** JavaFX controls such as `TableView`, `ComboBox`, `TextField`, and `Button` are integrated to create an intuitive user interface.
 - **Event Handling:** Button clicks (e.g., "Manage Rooms", "Billing") trigger actions via Controller classes (`DashboardController`, `RoomManagementController`).
 
-> **[INSERT DASHBOARD SCREENSHOT HERE]**
-> *Caption: The main dashboard showcasing live statistics and system navigation.*
+
 
 ---
 
@@ -20,8 +19,7 @@ This document maps the theoretical concepts covered in Labs 1 through 9 to their
 - **Background Tasks:** A live background thread (`ClockTask` implementing the `Runnable` interface) continuously updates the clock on the dashboard without blocking the main JavaFX UI thread.
 - **Daemon Threading:** The clock runs as a daemon thread, ensuring it safely terminates when the main application closes.
 
-> **[INSERT SCREENSHOT HIGHLIGHTING THE LIVE CLOCK HERE]**
-> *Caption: The real-time clock actively running on a background thread (`ClockTask.java`).*
+
 
 ---
 
@@ -31,8 +29,7 @@ This document maps the theoretical concepts covered in Labs 1 through 9 to their
 - **Inheritance & Polymorphism:** An abstract base class `Room` is extended by concrete classes (e.g., `StandardRoom`, `LuxuryRoom`). This allows uniform treatment of different room types.
 - **Abstraction:** The implementation utilizes an `Amenities` interface (e.g., `provideWifi()`) to contractually obligate certain behaviors in sub-classes.
 
-> **[INSERT SCREENSHOT OF YOUR IDE SHOWING ROOM / STANDARDROOM CLASSES HERE - Optional]**
-> *Caption: The class hierarchy demonstrating Inheritance and Polymorphism.*
+
 
 ---
 
@@ -50,8 +47,7 @@ This document maps the theoretical concepts covered in Labs 1 through 9 to their
 - **Sorting:** Built-in list sorting mechanisms (like `Collections.sort()`) are implemented to order displayed data, such as sorting rooms by price or availability.
 - **Generic Classes:** A custom `Pair<T, U>` generic utility class is utilized to strongly type associations (e.g., temporarily binding a Customer ID to a Room ID).
 
-> **[INSERT SCREENSHOT OF ROOM MANAGEMENT TABLE VIEW HERE]**
-> *Caption: Dynamic Data display utilizing ArrayLists and JavaFX TableViews.*
+
 
 ---
 
@@ -67,8 +63,7 @@ This document maps the theoretical concepts covered in Labs 1 through 9 to their
 - **Serialization:** Application configurations are serialized and saved to a binary file (`app_config.dat`) using `ObjectOutputStream`, allowing state preservation across restarts.
 - **RandomAccessFile:** The system maintains an append-only binary event log (`system_events.log`), writing actions quickly to the end of the file using `RandomAccessFile`.
 
-> **[INSERT SCREENSHOT OF GENERATED TEXT INVOICE / TERMINAL SHOWING LOG EVENTS HERE]**
-> *Caption: The checkout process triggers file generation and binary log appends.*
+
 
 ---
 
